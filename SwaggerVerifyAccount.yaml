@@ -1,0 +1,128 @@
+swagger: "2.0"
+
+info:
+  version: 1.0.0
+  title: Verify Account Owner API
+  description: API for verify the account owner with beneficiary information
+  contact:
+    name: Juan Gabriel Gómez Isaza
+    email: juagomez@bancolombia.com.co
+host: localhost:8080
+basePath: /api
+consumes:
+  - application/json
+produces:
+  - application/json
+
+paths:
+  /verifyAccountOwner:
+    post:
+      summary: "Verify Account Owner"
+      description: "Verify if beneficiary is own of account"
+      operationId: "VerifyAccountOwner"
+      produces:
+      - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: '#/definitions/jsonApiBody'
+      responses:
+        200:
+          description: "Beneficiary is account owner"
+          schema:
+            $ref: '#/definitions/verifyAccountResponse'
+        405:
+          description: "Invalid Input. please put correct request"
+          
+definitions:
+  
+    jsonApiBody:
+      type: object
+      required:
+      - "data"
+      properties:
+        data:
+          type: array
+          items:
+           $ref: '#/definitions/verifyAccountRequest'
+    
+    verifyAccountRequest:
+      type: object
+      required:
+      - "header"
+      - "transactionDate"
+      - "clientIp"
+      - "channelId"
+      - "consumerId"
+      - "messageId"
+      - "otp"
+      - "businessDocumentType"
+      - "businessDocument"
+      - "clientDocumentType"
+      - "clientDocument"
+      - "productType"
+      - "productNumber"
+      - "beneficiaryDocumentType"
+      - "beneficiaryDocument"
+      properties:
+        header:
+          $ref: '#/definitions/header'
+        productType:
+          type: string
+        productNumber:
+          type: string
+        beneficiaryDocumentType:
+          type: string
+        beneficiaryDocument:
+          type: string
+        transactionDate:
+          type: string
+        clientIp:
+          type: string
+        channelId:
+          type: string
+        consumerId:
+          type: string
+        messageId:
+          type: string
+        otp:
+          type: string
+        businessDocumentType:
+          type: string
+        businessDocument:
+          type: string
+        clientDocumentType:
+          type: string
+        clientDocument:
+          type: string
+    header:
+      type: object
+      required:
+        - "type"
+        - "id"
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+    verifyAccountResponse:
+      type: object
+      required:
+      - "header"
+      - "transactionDate"
+      - "messageId"
+      - "ownerAccountName"
+      
+      properties:
+        header:
+          $ref: '#/definitions/header'
+        productType:
+          type: string
+        transactionDate:
+          type: string
+        messageId:
+          type: string
+        ownerAccountName:
+          type: string
