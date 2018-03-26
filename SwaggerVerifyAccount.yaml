@@ -35,6 +35,9 @@ paths:
             $ref: '#/definitions/verifyAccountResponse'
         405:
           description: "Invalid Input. please put correct request"
+          schema:
+            $ref: '#/definitions/verifyAccountError'
+          
           
 definitions:
   
@@ -57,7 +60,6 @@ definitions:
       - "channelId"
       - "consumerId"
       - "messageId"
-      - "otp"
       - "businessDocumentType"
       - "businessDocument"
       - "clientDocumentType"
@@ -118,11 +120,30 @@ definitions:
       properties:
         header:
           $ref: '#/definitions/header'
-        productType:
-          type: string
         transactionDate:
           type: string
         messageId:
           type: string
         ownerAccountName:
+          type: string
+          
+    verifyAccountError:
+      type: object
+      required:
+      - "id"
+      - "status"
+      - "code"
+      - "title"
+      - "detail"
+      
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+        code:
+          type: string
+        title:
+          type: string
+        detail:
           type: string
